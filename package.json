@@ -1,0 +1,15 @@
+{
+  "name": "browroute",
+  "version": "1.0.0",
+  "description": "This package handles routing at the client side.",
+  "keywords": [
+    "browser"
+  ],
+  "license": "MIT",
+  "author": "dhruv125",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
