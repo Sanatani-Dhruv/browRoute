@@ -1,0 +1,6 @@
+{
+  "routes": {
+    "/":"/base.html",
+    "/second":"/second.html"
+  }
+}
