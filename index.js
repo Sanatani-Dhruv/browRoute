@@ -1,40 +1,5 @@
 let RouteJson;
 document.title = '';
-window.onload = function() {
-	// route('/', window.location.pathname);
-	let req = new XMLHttpRequest();
-	req.open('GET','/routes.json',true);
-	req.send();
-	req.onreadystatechange = function() {
-		if (req.readyState == 4 && req.status === 200) {
-			RouteJson = JSON.parse(req.responseText);
-			// console.log(RouteJson["routes"]);
-			for (key in RouteJson['routes']) {
-				let val = RouteJson['routes'][key];
-				console.log([key, val]);
-				if (window.location.pathname == key) {
-					route(val, key);
-					return 0;
-				}
-			}
-		}
-	}
-}
-
-document.body.addEventListener("click", function(e) {
-	// e.target was the clicked element
-	if(e.target && e.target.nodeName == "A") {
-		console.log(e.target);
-		e.preventDefault()
-		for (key in RouteJson['routes']) {
-			let value = RouteJson.routes[key];
-			if (e.target.href == key) {
-				route(value, key)
-			}
-		}
-		// alert(e.target.innerText);
-	}
-});
 
 function route(str, url = null) {
 	// console.log(window.location);
@@ -56,7 +21,7 @@ function route(str, url = null) {
 				// console.log(titleEnd);
 				let titleCollection = document.getElementsByTagName('title')[1]
 				history.pushState(null, null, url);
-				console.log(titleCollection.remove());
+				titleCollection.remove();
 			}
 		};
 	} catch (err) {
@@ -64,13 +29,51 @@ function route(str, url = null) {
 	}
 }
 
+window.onload = function() {
+	// route('/', window.location.pathname);
+	let req = new XMLHttpRequest();
+	req.open('GET','/routes.json',true);
+	req.send();
+	req.onreadystatechange = function() {
+		if (req.readyState == 4 && req.status === 200) {
+			RouteJson = JSON.parse(req.responseText);
+			// console.log(RouteJson["routes"]);
+			for (key in RouteJson['routes']) {
+				let val = RouteJson['routes'][key];
+				if (window.location.pathname == key) {
+					// console.log([key, val]);
+					route(val, key);
+					return 0;
+				}
+			}
+		}
+	}
+}
+
+document.body.addEventListener("click", function(e) {
+	// e.target was the clicked element
+	if(e.target && e.target.nodeName == "A") {
+		// console.log(e.target);
+		e.preventDefault()
+		for (key in RouteJson['routes']) {
+			let gotolink = window.location.protocol + "//" + window.location.host + key;
+			let gotlink = e.target.href.substr(0, e.target.href.length);
+			let value = RouteJson.routes[key];
+			// console.log([key, value]);
+			if (gotlink === gotolink) {
+				console.log(`storelink: ${gotlink}
+gotolink: ${gotolink}`);
+				route(value, key);
+			}
+		}
+		// alert(e.target.innerText);
+	}
+});
+
 let links = document.querySelectorAll('a');
 for (value in links) {
-	console.log()
+	// console.log()
 };
-// links.forEach(function(value) {
-// 	console.log(value);
-// });
 
 // history.pushState(null, null,"/second");
 // console.log(window.location.pathname);
