@@ -1,3 +1,4 @@
+let RouteJson;
 document.title = '';
 window.onload = function() {
 	// route('/', window.location.pathname);
@@ -6,7 +7,7 @@ window.onload = function() {
 	req.send();
 	req.onreadystatechange = function() {
 		if (req.readyState == 4 && req.status === 200) {
-			let RouteJson = JSON.parse(req.responseText);
+			RouteJson = JSON.parse(req.responseText);
 			// console.log(RouteJson["routes"]);
 			for (key in RouteJson['routes']) {
 				let val = RouteJson['routes'][key];
@@ -25,7 +26,12 @@ document.body.addEventListener("click", function(e) {
 	if(e.target && e.target.nodeName == "A") {
 		console.log(e.target);
 		e.preventDefault()
-		route(e.target.href, e.target.nodeName);
+		for (key in RouteJson['routes']) {
+			let value = RouteJson.routes[key];
+			if (e.target.href == key) {
+				route(value, key)
+			}
+		}
 		// alert(e.target.innerText);
 	}
 });
