@@ -61,8 +61,10 @@ document.body.addEventListener("click", function(e) {
 			let value = RouteJson.routes[key];
 			// console.log([key, value]);
 			if (gotlink === gotolink) {
-				console.log(`storelink: ${gotlink}
-gotolink: ${gotolink}`);
+				// console.log(`storelink: ${gotlink}
+// gotolink: ${gotolink}`);
+				localStorage.setItem('lastLink', gotolink);
+				// console.log(localStorage);
 				route(value, key);
 			}
 		}
@@ -70,6 +72,15 @@ gotolink: ${gotolink}`);
 	}
 });
 
+window.addEventListener('popstate', (e) => {
+	e.preventDefault();
+	console.log(window.location.pathname);
+	// route(localStorage.getItem('lastLink'), "a");
+	console.log();
+	route(RouteJson.routes[window.location.pathname]);
+});
+
+// console.log(history);
 let links = document.querySelectorAll('a');
 for (value in links) {
 	// console.log()
