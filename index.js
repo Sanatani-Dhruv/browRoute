@@ -62,7 +62,7 @@ document.body.addEventListener("click", function(e) {
 			// console.log([key, value]);
 			if (gotlink === gotolink) {
 				// console.log(`storelink: ${gotlink}
-// gotolink: ${gotolink}`);
+				// gotolink: ${gotolink}`);
 				localStorage.setItem('lastLink', gotolink);
 				// console.log(localStorage);
 				route(value, key);
